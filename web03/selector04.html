@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>탐색선택자</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        eq(index), lt(index), gt(index) 탐색 선택자
+        : eq 탐색자는 선택한 요소 중 지정한 인덱스가 참조하고 있는 요소만 선택한다.
+        lt 탐색자는 선택한 요소 중 지정한 인덱스보다 작은(less than)인덱스를 참조하는 요소만 선택한다.
+        gt 탐색자는 선택한 요소 중 지정한 인덱스보다 큰(greater than)인덱스를 참조하는 요소만 선택한다.
+
+        // eq 기본형
+        $("요소:eq(index)")
+        $("요소"):eq(index)
+        
+        // lt 기본형
+        $("요소:lt(index)")
+
+        // gt 기본형
+        $("요소:gt(index)")
+
+        ==================================================
+        
+        fitst-of-type / last-of-type 선택자
+        : 선택한 요소의 무리 중 첫 번째 요소만 선택하거나 마지막 요소를 선택할 때 사용한다.
+
+        // 기본형
+        $("요소:first-of-type")
+        $("요소:last-of-type")
+
+        ==================================================
+
+        nth-child(숫자n) / nth-last-child(숫자) / nth-of-type(숫자) / nth-last-of-type(숫자)
+        : nth-child(숫자n)는 선택한 요소 무리 중 지정한 숫자 번째에 있는 요소를 선택할 때 사용한다.
+        숫자 뒤에 n이 붙으면 '배수'를 의미한다. 2n = 2의 배수 = 짝수
+        nth-last-of-type(숫자)는 뒤에서 해당 숫자 번째의 요소를 선택할 때 사용한다.
+
+        // 기본형
+        $("요소:nth-child(숫자n)")
+        $("요소:nth-last-child(숫자n))
+        $("요소:nth-of-type(숫자n)")
+        $("요소:nth-last-of-type(숫자n))
+
+        ===================================================
+
+        only-child
+        : 부모요소에게 자식요소가 하나일 때 선택하는 선택자이다.
+
+        // 기본형
+        $("요소:only-child")
+
+        ====================================================
+
+        slice 선택자
+        : slice 선택자는 선택한 요소의 지정 구간 인덱스의 요소를 선택한다.
+        slice는 시작 인덱스 번호부터 끝나는 인덱스의 바로 앞번호의 인덱스까지의 요소를 반환한다.
+        ex. slice(0, 3) → 0, 1, 2
+
+        // 기본형
+        $("요소").slice(start index, end index)
+    -->
+    <ul id="menu">
+      <li>내용1</li>
+      <li>내용2</li>
+      <li>내용3</li>
+      <li>내용4</li>
+      <li>내용5</li>
+    </ul>
+    <script>
+      "use strict";
+      $(document).ready(function () {
+        // menu 안의 li들 중 인덱스 번호 3번째 요소에 css 적용
+        $("#menu li").eq(3).css("background-color", "pink");
+        // lt나 gt는 아래와 같은 형태로는 사용할 수 없다.
+        // $("#menu li").lt(3).css("background-color", "yellow");
+        $("#menu li:lt(3)").css("background-color", "yellow");
+
+        let style = {
+          backgroundColor: "skyblue",
+          "font-weight": 600,
+        };
+
+        $("#menu li:gt(3)").css({
+          // 문자열로 안쓰려면 카멜 표기법으로 작성
+          backgroundColor: "skyblue",
+          "font-weight": 600,
+        });
+        /* 
+          css 메서드에는 객체를 직접 참조할 수 있다. 
+          위의 예시처럼 적용하고자하는 css의 속성과 값을 변수에 따로 담아두고 .css(변수명) 으로 적용할 수도 있고,
+          객체를 직접 넣어서 적용할수도 있다.
+          변수로 따로 생성해 놓을 경우 동일한 속성을 다른 곳에 적용할 수 있고 
+          직접 적용할 경우 해당 태그에만 사용할 수 있다는 차이가 있다.
+        */
+        // 객체 안에 안담겨 있을 경우는 카멜 표기법X
+        $("#menu li").slice(1, 4).css("color", "red");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제이쿼리 배열 메서드</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        제이쿼리 배열관련 메서드
+        : 자바스크립트와 제이쿼리에는 배열 안을 탐색하는 다양한 메서드들이 있다.
+
+        =============================================================
+
+        1. each / $.each()메서드 ★★
+        : 선택자로 선택한 요소(배열에 담긴 요소들)을 순서대로 하나씩 선택하면서 인덱스 정보를 가져온다.
+
+        // 기본형(1) 
+        $("요소").each(function(매개변수1, 매개변수2 ...){ 자바스크립트 코드 });
+
+        // 기본형(2)
+        $.each($("요소"), function(매개변수1, 매개변수2 ...){ 자바스크립트 코드 });
+
+        기본형 1과 2 모두 배열에 저장된 요소의 개수만큼 메서드를 반복 실행한다.
+        메서드를 실행 할 때마다 매개변수에는 배열에 저장된 요소와 인덱스의 값이 오름차순으로 대입된다.
+        첫번째 매개변수는 인덱스 번호를 참조하고 두번째 매개변수는 배열을 참조한다.
+
+        // 기본형(3)
+        $("요소").each(function(){ $(this) })
+
+        // 기본형(4)
+        $.each($("요소선택"), function(){ $(this) })
+
+        기본형 3과 4또한 배열에 저장된 요소의 개수만큼 매서드를 반복실행한다.
+        메서드를 실행할 때마다 this에는 배열에 저장된 요소가 오름차순으로 대입된다.
+
+        1,2와 3,4의 차이점은 1,2는 인덱스 번호를 기준으로 순서대로 대입하는 것이고,
+        3,4는 html에 작성된 순서대로 대입하는 것이다.
+
+        ==================================================================
+
+        2. $.map()★★, $.grep()메서드
+        : map 메서드는 배열에 저장된 데이터 수만큼 메서드를 반복 실행한다.
+        그리고 메서드에서 반환된 데이터는 새 배열에 저장되고 그 배열객체를 반환한다.
+        map 메서드는 each메서드와는 반대로 매개변수1이 인덱스 번호에 해당하는 내용이,
+        매개변수2가 인덱스 번호를 반환한다.
+        map 메서드의 첫 번째 매개변수에는 배열의 데이터가 순서대로 대입되고,
+        두 번째 매개변수에는 인덱스 번호가 대입된다.
+
+        grep 메서드는 배열에 저장된 데이터 수만큼 메서드를 반복 실행하며 인덱스 오름차순으로 배열의 데이터를 불러온다.
+        메서드의 반환값이 true면 새 배열을 저장하고 반환한다.
+
+        // 기본형
+        $.map(array, function(매개변수1, 매개변수2 ...){ return 데이터; });
+
+        // 기본형
+        $.grep(array, function(매개변수1, 매개변수2 ...){ return [true/false]; });
+    -->
+    <ul id="menu1">
+      <li>내용1-1</li>
+      <li>내용1-2</li>
+      <li>내용1-3</li>
+    </ul>
+    <ul id="menu2">
+      <li>내용2-1</li>
+      <li>내용2-2</li>
+      <li>내용2-3</li>
+    </ul>
+    <script>
+      $(function () {
+        let obj = [{ area: "seoul" }, { area: "anyang" }, { area: "busan" }];
+        $(obj).each(function (index, array) {
+          console.log(index);
+          console.log(array);
+          console.log(index + array);
+          console.log(index + array.area);
+        });
+        console.log("-----------------------------------");
+        $.each($("#menu1 li"), function (index, array) {
+          console.log(index);
+          console.log(array);
+        });
+        console.log("-----------------------------------");
+        $.each($("#menu1 li"), function (i) {
+          console.log(i);
+          console.log($("this"));
+        });
+        console.log("-----------------------------------");
+        $.each($("ul"), function (i) {
+          console.log(i);
+          console.log($("this"));
+        });
+
+        let arr1 = [
+          { area: "seoul", name: "김땡땡" },
+          { area: "anyang", name: "이땡땡" },
+          { area: "busan", name: "박땡땡" },
+        ];
+        let result1 = $.map(arr1, function (a, b) {
+          console.log("a는: " + a);
+          console.log("b는: " + b);
+          if (a.area == "seoul") {
+            return a;
+          } else {
+            return false;
+          }
+          //  { area: "seoul", name: "김땡땡" } 라는 객체 자체를 반환한다.
+          console.log(result1);
+        });
+        let result2 = $.grep(arr1, function (a, b) {
+          console(a);
+          console(b);
+          if (a.area == "anyang") {
+            return true; // true인 데이터만 반환한다.
+          } else {
+            return false; // false인 데이터는 반환하지 않는다.
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
