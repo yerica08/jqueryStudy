@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>속성 탐색 선택자</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        속성 탐색 선택자 ★★★
+        : 속성 탐색 선택자는 선택한 요소를 기준으로 일치하는 속성의 포함여부를 따져 요소를 선택하는 선택자이다.
+        예를 들어 이미지 태그 중 경로가 ./img/~~~.jpg와 일치하는 요소가 있는지 찾을 때 사용한다.
+
+        속성과 값에 따른 선택자
+        : 선택한 요소 중 지정한 속성과 일치하는 속성이 있는지 없는지 포함여부를 따져 요소를 선택한다.
+        
+        // 기본형(1) : 선택한 요소 중 지정한 속성명이 있는 요소만 선택한다.
+        $('요소[속성명]')
+
+        // 기본형(2) : 선택한 요소 중 지정한 속성명과 값이 전부 일치하는 요소를 선택한다.
+        $('요소[속성명 = 속성값]')
+
+        // 기본형(3) : 선택한 요소 중 속성값이 명시한 값으로 시작하는 요소만 선택한다. 단, 명시한 값은 한 단어로 일치해야한다.
+        $('요소[속성명 ^= 속성값]')
+
+        // 기본형(4) : 선택한 요소 중 속성값이 명시한 값으로 끝나는 요소만 선택한다. 단, 명시한 값은 한 단어로 일치해야한다.
+        $('요소[속성명 $= 속성값]')
+
+        // 기본형(5) : 선택한 요소 중 속성값이 명시한 값을 포함하는 요소만 선택한다. 명시한 값의 단위가 단어가 아니더라도 해당하는 글자가 포함되어 있으면 위치와 관계 없이 선택한다.
+        $('요소[속성명 *= 속성값]')
+
+        // 기본형(6) : input 태그 중 type 속성 값이 일치하는 요소만 선택한다. type 부분에는 text, password 같은 타입종류가 들어간다.
+        $(':type 속성값')
+
+        =======================================
+
+        속성 상태에 따른 선택자
+        : 속성 상태에 따른 선택자는 선택한 요소 중 속성 상태에 따라 요소를 선택할 수 있다.
+
+        // 기본형(1) : 선택한 요소 중 숨겨진 상태 또는 보이는 상태의 요소만 선택한다.
+        $('요소:visible')
+        $('요소:hidden')
+
+        // 기본형(2) : select 태그의 option 중 현재 선택된 요소만 선택한다.
+        $(':selected')
+
+        // 기본형(3) : checkbox 또는 radio 버튼 요소 중 체크된 요소만 선택한다.
+        $(':checked')
+
+        ========================================
+        
+    -->
+    <div id="wrap">
+      <p>
+        <a href="https://naver.com" target="_blank">네이버</a>
+      </p>
+      <p>
+        <a href="https://nate.com" target="_blank">네이트</a>
+      </p>
+      <p>
+        <a href="https://daum.net" target="_blank">다음</a>
+      </p>
+      <p>
+        <a href="https://kakao.com" target="_blank">카카오</a>
+      </p>
+    </div>
+    <form action="#" method="post" id="member_f">
+      <div>
+        <input type="text" name="user_id" id="user_id" />
+        <label for="user_id">아이디</label>
+      </div>
+      <div>
+        <input type="password" name="user_pw" id="user_pw" />
+        <label for="user_pw">패스워드</label>
+      </div>
+    </form>
+    <div id="box">
+      <p>내용1</p>
+      <p style="display: none">내용2</p>
+      <p>내용3</p>
+      <p>내용4</p>
+    </div>
+    <form action="#" method="post" id="form01">
+      <div id="zone1">
+        <select name="course" id="course">
+          <option value="opt1">옵션1</option>
+          <option value="opt2" selected>옵션2</option>
+          <option value="opt3">옵션3</option>
+        </select>
+      </div>
+      <div id="zone2">
+        <input type="checkbox" name="hobby1" value="독서" /> 독서
+        <input type="checkbox" name="hobby2" value="자전거" /> 자전거
+        <input type="checkbox" name="hobby3" value="수영" checked /> 수영
+      </div>
+      <div id="zone3">
+        <input type="radio" name="gender" value="male" /> 남성
+        <input type="radio" name="gender" value="female" checked /> 여성
+      </div>
+    </form>
+    <script>
+      $(document).ready(function () {
+        // a태그 중 target 속성이 있는 요소 선택
+        $("#wrap a[target]").css("color", "skyblue");
+
+        // a태그 중 href 속성이 https로 시작하는 요소 선택
+        $("#wrap a[href ^= https]").css({
+          backgroundColor: "#eee",
+          textDecoration: "none",
+        });
+
+        // a태그 중 href 속성이 net으로 끝나는 요소 선택
+        $("#wrap a[href $= net]").css({
+          color: "gold",
+        });
+
+        // a태그 중 href 속성 중 ka 글자를 포함하는 요소 선택
+        $("#wrap a[href *= ka]").css({
+          color: "green",
+        });
+
+        // input 중 type 속성값이 text 인 요소 선택
+        $("#member_f input[type = text]").css({
+          border: "1px solid pink",
+          color: "pink",
+        });
+        $("#member_f input[type = text] + label").css("color", "pink");
+
+        // input 중 type 속성값이 password 인 요소 선택
+        $(":password").css({
+          border: "1px solid skyblue",
+          color: "skyblue",
+        });
+        $(":password + label").css("color", "skyblue");
+
+        // p태그 중 숨겨져 있는 요소를 선택
+        $("#box p:hidden").css({ display: "block", color: "tomato" });
+
+        // zone1 중 선택 되어있는 옵션의 value값
+        let zone1 = $("#zone1 :selected").val();
+        console.log(zone1);
+
+        let zone2 = $("#zone2 :checked").val();
+        console.log(zone2);
+
+        let zone3 = $("#zone3 :checked").val();
+        console.log(zone3);
+      });
+    </script>
+  </body>
+</html>

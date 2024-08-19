@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>컨텐츠 탐색 선택자</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        컨텐츠 탐색 선택자
+        : 컨텐츠 탐색 선택자는 요소 또는 속성의 포함 여부에 따라서 특정 요소를 선택하는 선택자이다.
+
+        contains() / contents() / has() / not() / end() 선택자
+        : contains() 선택자는 선택한 요소 중 지정한 텍스트를 포함하는 요소만 선택하고,
+        contents() 선택자는 선택한 요소의 하위 요소 중 자손의 텍스트와 태그 노드를 선택한다.
+        has() 선택자는 선택한 요소 중 지정한 태그를 포함하는 요소만 선택하고
+        not() 선택자는 선택한 요소 중 지정한 태그만 제외하고 선택한다.
+        end() 선택자는 필터링 되기 이전 선택자를 다시 선택한다.
+
+        // 기본형
+
+        $('요소:contains(텍스트)')
+        $('요소').contents()
+        $('요소:has(요소명)') 또는 $('요소').has()
+        $('요소:not(요소명)') 또는 $('요소').not()
+        $('요소').탐색선택자().end() 
+        // child나 eq 등 탐색 선택자가 나온 뒤 end를 쓰게 되면 바로 앞에 쓴 탐색선택자를 취소해주고 그 이전의 요소를 선택해준다.
+
+        =============================================
+
+        find() / filter() 선택자
+        : find() 선택자는 선택한 하위 요소 중 find로 필터링한 요소만 선택한다.
+        filter() 선택자는 선택한 요소 중에서 filter()로 필터링한 요소만 선택한다.
+        둘의 차이점은 필터링 할 대상이 선택 요소를 기준으로 '하위요소'인지 '선택한 요소'인지로 구분한다는 점이다.
+
+        // 기본형
+        $('요소').find('하위 요소 중 필터링할 요소')
+        $('요소').filter('선택한 요소 중 필터링할 요소')
+
+        ==============================================
+
+        is()메서드
+        : 선택한 요소의 상태가 지정한 속성과 일치하면 true를, 그렇지 않으면 false를 반환한다.
+        is()메서드는 폼 요소 중 체크박스나 셀렉트 박스의 '선택여부' 또는 '보이는지에 대한 여부'를 주로 알아 볼 때 사용한다.
+
+        // 기본형
+        $('요소').is(':checked / :selected / :visible / :hidden / :animated')
+
+        1. checked : 선택한 체크박스 또는 라디오 버튼 요소가 체크된 상태면 true, 아미녀 false를 반환한다.
+        2. selected : 선택한 셀렉트 박스가 선택된 상태면 true, 아니면 false를 반환한다.
+        3. visible : 선택한 요소가 보이면 true, 안보이면 false를 반환한다.
+        4. hidden : 선택한 요소가 보이면 false, 안보이면 true를 반환한다.
+        5. animated : 
+    -->
+    <div id="outer">
+      <h1>컨텐츠 탐색 선택자</h1>
+      <section id="inner_1">
+        <h2>contains(), contents(), has()</h2>
+        <p>
+          <span> 내용1</span>
+        </p>
+        <p>
+          <strong> 내용2</strong>
+        </p>
+        <p>
+          <span> 내용3</span>
+        </p>
+      </section>
+      <section id="inner_2">
+        <h2>not(), end()</h2>
+        <p>내용4</p>
+        <p>내용5</p>
+        <p>내용6</p>
+      </section>
+      <section id="inner_3">
+        <h2>find(), filter()</h2>
+        <p class="text1">내용7</p>
+        <p class="text2">내용8</p>
+      </section>
+      <section id="inner_4">
+        <h2>filter(function)</h2>
+        <p>내용9</p>
+        <p>내용10</p>
+        <p>내용11</p>
+        <p>내용12</p>
+      </section>
+      <section id="inner_5">
+        <h2>is()</h2>
+        <h3>문단 태그 영역</h3>
+        <p>내용1</p>
+        <p style="display: none">내용2</p>
+      </section>
+      <section id="inner_6">
+        <h3>폼 태그 영역</h3>
+        <div>
+          <input type="checkbox" name="chk1" id="chk1" checked />
+          <label for="chk1">체크1</label>
+          <input type="checkbox" name="chk2" id="chk2" />
+          <label for="chk2">체크2</label>
+        </div>
+      </section>
+    </div>
+    <script>
+      $(document).ready(function () {
+        // inner_1 안에 있는 p 태그 중 내용1이라는 텍스트를 포함하는 태그 선택
+        $("#inner_1 p:contains(내용1)").css("color", "tomato");
+
+        // inner_1 안에 있는 p 태그 중 strong 태그를 포함하는 태그 선택
+        $("#inner_1 p").contents("strong").css("color", "blue");
+        $("#inner_1 p:has(strong)").css("background-color", "pink");
+
+        // outer 안에 있는 자손요소 선택
+        $("#outer").contents().css("border", "1px solid pink");
+
+        // inner_2 안에 있는 p 태그 중 첫번째 요소를 제외한 나머지 요소에 컬러 적용
+        $("#inner_2 p").not(":first").css("color", "orange");
+
+        // 바로 앞의 eq(1)을 취소시킨다. $("#inner_2 p").css("background-color", "skyblue")와 같다.
+        $("#inner_2 p").eq(1).end().css("background-color", "skyblue");
+
+        //#inner_3 안의 자식 요소 중 .text1인 요소를 선택하여 속성 적용
+        $("#inner_3").find(".text1").css("color", "tomato");
+
+        //#inner_3 안의 p태그 중 .text2인 요소를 선택하여 속성 적용
+        $("#inner_3 p").filter(".text2").css("color", "orange");
+
+        /* 모든 태그 요소는 객체
+        필터에 함수를 넣을 경우 매개변수는 반드시 2개가 들어가고 무엇인지 정해져있다. 
+        인덱스번호와 태그(객체)이다.
+        filter, find는 배열에서 찾아야한다. */
+        $("#inner_4 p")
+          .filter(function (index, object) {
+            console.log(index);
+            console.log(object);
+            return index % 2 !== 0;
+          })
+          .css("color", "orange");
+
+        let result1 = $("#inner_5 p").eq(0).is(":visible");
+        console.log(result1);
+        let result2 = $("#inner_5 p").eq(1).is(":visible");
+        console.log(result2);
+
+        let result3 = $("#chk1").is(":checked");
+        console.log(result3);
+        let result4 = $("#chk2").is(":checked");
+        console.log(result4);
+      });
+    </script>
+  </body>
+</html>

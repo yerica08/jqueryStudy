@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제이쿼리 배열 메서드</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        $.inArray() / $.isArray() / $.merge() 메서드
+        : inArray 메서드는 배열에 저장된 데이터 중 지정된 데이터를 찾아 인덱스 번호를 반환한다.
+        isArray 메서드는 지정한 데이터가 배열 객체면 true를 배열이 아니면 false를 반환한다.
+        merge 메서드는 두 배열객체를 하나의 객체로 묶는다.
+
+        // 기본형
+        $.inArray(data, Array, start index)
+        $.isArray(object)
+        $.merge(array1, array2)
+
+        ===================================================
+
+        $.index() 메서드
+        : index 메서드는 지정한 선택 요소를 찾아서 해당하는 인덱스 값을 반환한다.
+
+        // 기본형
+        $("요소").index('지정한 선택 요소')
+
+    -->
+    <ul>
+      <li>내용1</li>
+      <li>내용2</li>
+      <li id="list3">내용3</li>
+      <li>내용4</li>
+    </ul>
+    <script>
+      $(function () {
+        let arr1 = ["서울", "대전", "부산", "전주"];
+        let arr2 = ["한국", "미국", "일본", "중국"];
+        let obj = {
+          name: "김땡땡",
+          area: "서울",
+        };
+
+        // let idxNum = $.inArray("부산", arr1);
+        // document.write(idxNum);
+
+        // let idxNum2 = $.isArray(arr2);
+        // let idxNum3 = $.isArray(obj);
+        // document.write(idxNum2);
+        // document.write(idxNum3);
+
+        // $.merge(arr1, arr2);
+        // document.write(arr1);
+        // let plus2 = $.merge(arr1, obj);
+        // console.log(plus2);
+
+        // index 메서드
+        let idxNum4 = $("li").index($("#list3"));
+        console.log(idxNum4);
+      });
+    </script>
+  </body>
+</html>
