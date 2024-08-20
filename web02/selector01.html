@@ -166,6 +166,7 @@
         //제이쿼리의 체이닝 기법 : 메서드를 여러개 연결하여 사용하는 기법.
         $(".txt").css("color", "red").css("background-color", "pink");
 
+        // 스타일을 객체로 지정
         let style = {
           // 문자열이 아니게 쓰고 싶으면 카멜 표기법으로 써야함. backgroundColor : orange
           "background-color": "orange",
@@ -176,9 +177,14 @@
         $(".txt").prev().css(style);
         $("h1+p").css(style);
         $(".txt").next().next().css(style);
+
+        // 전체 형요소 선택자
         $(".txt").prevAll().css("text-decoration", "underline");
 
+        //전체 형제 요소 선택자
         $(".txt").siblings().css("font-size", "50px");
+
+        //범위 제한 형, 동생 요소 선택자
         $(".menu4").prevUntil(".menu1").css("color", "red");
         $(".menu4").nextUntil(".menu7").css("color", "blue");
       });

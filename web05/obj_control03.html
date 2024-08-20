@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      p {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #f05353;
+        padding: 20px;
+        margin: 20px;
+        background-color: #fff0be;
+        /* 만약 box-sizing이 설정되어있다면 영역값이 width/height 안으로 padding과 border 값이 들어간다.
+           이때 컨텐츠 영역 값만 줄어들고 padding과 border 값은 그대로 유지된다.
+        */
+        /* box-sizing: border-box; */
+      }
+      #box_wrap {
+        width: 200px;
+        height: 100px;
+        margin: 30px;
+        position: relative;
+        background-color: pink;
+      }
+      .box {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 100px;
+        top: 50px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        수치 조작 메서드
+        : 수치 조작 메서드는 요소의 속성을 조작할 때 사용하는 메서드로 요소의 넓이 높이나 여백영역을 조작하거나 위치를 바꿀 때 사용한다.
+        수치 조작 메서드에서는 영역을 padding/margin/border를 제외한 순수한 컨텐츠 영역과 컨텐츠와 padding 영역을 포함한 영역 border 까지 포함한 영역으로 구분한다.
+        width나 height 는 순수한 컨텐츠 영역의 넓이 값을 바꾸고 innerWidth와 innerHeight는 패딩까지를 포함한 영역을, outerWidth와 outerHeight는 보더 까지 포함한 영역의 넓이 값을 바꾼다.
+
+        
+        // 기본형(1) : 컨텐츠 영역(padding/margint/border 제외)의 너비값을 반환하거나 바꾼다.
+        $("요소").width()
+        $("요소").width(숫자)
+        
+        // 기본형(2) : 컨텐츠 영역(padding/margint/border 제외)의 높이값을 반환하거나 바꾼다.
+        $("요소").height()
+        $("요소").height(숫자)
+
+        // 기본형(3) : 컨텐츠 영역 + padding 영역 의 너비값을 반환하거나 바꾼다.
+        $("요소").innerWidth()
+        $("요소").innerWidth(숫자)
+        
+        // 기본형(4) : 컨텐츠 영역 + padding 영역 의 높이값을 반환하거나 바꾼다.
+        $("요소").innerHeight()
+        $("요소").innerHeight(숫자)
+
+        // 기본형(5) : 컨텐츠 영역 + padding + border 영역의 너비 값을 반환하거나 바꾼다.
+        $("요소").outerWidth()
+        $("요소").outerWidth(숫자)
+
+        // 기본형(5) : 컨텐츠 영역 + padding + border 영역의 높이 값을 반환하거나 바꾼다.
+        $("요소").outerHeight()
+        $("요소").outerHeight(숫자)
+
+        ===================================================
+
+        요소 위치 메서드
+        : 요소 위치 메서드에는 position()메서드와 offset()메서드가 있다.
+        position()메서드는 position 기준이 되는 요소를 기준으로 선택한 요소에서 가로/세로 떨어진 위치 좌표값을 반환하거나 바꿀 때 사용한다.
+        offset()메서드는 document 문서를 기준으로 선택한 요소의 가로/세로 떨어진 위치 좌표값을 반환하거나 바꿀 때 사용한다.
+        기본형으로는 원하는 요소를 불러온 뒤 .position() / .offset()을 붙이고 그 뒤에 위치값을 top / left / right / bottom 좌표를 붙이는데 이때 좌표 뒤에는 소괄호를 붙이지 않는다.
+
+        // 기본형
+        $("요소").position().left / .right / .top / .bottom
+        $("요소").offset().left / .top
+    -->
+    <!-- 수치조작 메서드 예시 -->
+    <p id="p1">내용1</p>
+    <p id="p2">내용2</p>
+
+    <div id="box_wrap">
+      <div class="box">박스</div>
+    </div>
+    <div class="txt1">절대 top 위치 값 <span></span></div>
+    <div class="txt2">상대 top 위치 값 <span></span></div>
+    <script>
+      $(function () {
+        // 수치 조작 메서드 예시
+
+        // p1의 순수한 너비 값
+        let w1 = $("#p1").width();
+        console.log(w1); // 50
+
+        let w2 = $("#p1").innerWidth();
+        console.log(w2); // 90 = 20 + 50 + 20
+
+        let w3 = $("#p1").outerWidth();
+        console.log(w3); // 92 = 1 + 20 + 50 + 20 + 1
+
+        // p2의 outerWidth 값 변환
+        $("#p2").outerWidth(150).outerHeight(150);
+      });
+
+      let $txt1 = $(".txt1 span"),
+        $txt2 = $(".txt2 span"),
+        $box = $(".box");
+
+      let off_t = $box.offset().top;
+      console.log("offset top : " + off_t); // offset top : 304
+
+      let pos_t = $box.position().top;
+      console.log("position top : " + pos_t); // position top : 50
+
+      $txt1.text(off_t); // 문서를 기준으로 top 좌표 거리
+      $txt2.text(pos_t); // 요소를 기준으로 top 좌표 거리
+    </script>
+  </body>
+</html>

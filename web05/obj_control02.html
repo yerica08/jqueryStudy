@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체 조작 메서드</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+    <style>
+      .aqua {
+        background-color: aqua;
+      }
+      .red {
+        background-color: red;
+      }
+      .green {
+        background-color: green;
+      }
+      .yellow {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        3. addClass() / removeClass() / toggleClass() / hasClass()
+        : addClass()메서드는 선택한 요소에 클래스를 생성하고
+        romoveClass()메서드는 선택한 요소에서 지정한 클래스를 삭제한다.
+        toggleClass()메서드는 선택한 요소에 지정한 클래스가 없으면 생성하고 있으면 삭제한다.
+        hasClass()메서드는 선택한 요소에 지정한 클래스가 있으면 true를 반환한고 없으면 false를 반환한다.
+
+        // 기본형
+        $("요소").addClass('클래스명')
+        $("요소").removeClass('클래스명')
+        $("요소").toggleClass('클래스명')
+        $("요소").hasClass('클래스명')
+
+        -------------------------------------
+
+        4. val() 메서드
+        : 선택한 폼 요소에 value 속성값을 가져오거나 새 값을 적용할 때 사용한다.
+
+        // 기본형(1) : 요소가 가지고 있던 속성값 가져오기
+        $("요소").val()
+
+        // 기본형(2) : 요소에 새로운 값을 적용하기
+        $("요소").val("새로운 값")
+
+        -----------------------------------
+
+        5. prop() 메서드
+        : 선택한 폼 요소(select, checkbox, radio)의 상태 속성값을 가져오거나 새롭게 설정할 때 사용한다. 
+        그리고 선택한 요소에 태그명(tagName), 노드 타입(nodeType), select 박스의 선택된 옵션의 index 값도 알 수 있다.
+
+        // 기본형(1) : 선택한 폼 요소가 체크(선택)된 상태를 true/false로 반환한다. 
+        $("요소").prop('checked')
+        $("요소").prop('selected')
+
+        // 기본형(2) : 폼 요소를 선택하여 체크 또는 선택된 상태로 바꾼다.
+        $("요소").prop('checked', true)
+        $("요소").prop('checked', false)
+
+        $("요소").prop('selected', true)
+        $("요소").prop('selected', false)
+
+        // 기본형(3) : 선택한 요소의 태그명이나 노드타입, 선택된 옵션의 인덱스 값을 구할 수 있다.
+        이때 defalutValue 를 사용하면 사용자가 value 속성을 바꾸더라도 초기의 value 값을 가져온다.
+        $("요소").prop('tagName')
+        $("요소").prop('selectedIndex')
+        $("요소").prop('nodeType')
+        $("요소").prop('defalutValue')
+    -->
+    <p id="p1">내용1</p>
+    <p id="p2" class="red">내용2</p>
+    <p id="p3" class="red">내용3</p>
+    <p id="p4" class="green">내용4</p>
+    <p id="p5">내용5</p>
+    <p id="p6" class="yellow">내용6</p>
+    <p id="p7"></p>
+    <form action="#" method="post" id="form_1">
+      <div>
+        <label for="user_name">이름</label>
+        <input type="text" name="user_name" id="user_name" value="김땡땡" />
+      </div>
+      <div>
+        <label for="user_id">아이디</label>
+        <input type="text" name="user_id" id="user_id" value="hello" />
+      </div>
+    </form>
+    <form action="#" method="post" id="form_2">
+      <div>
+        <input type="checkbox" name="chk1" id="chk1" />
+        <label for="chk1">체크1</label>
+        <input type="checkbox" name="chk2" id="chk2" checked />
+        <label for="chk2">체크2</label>
+        <input type="checkbox" name="chk3" id="chk3" />
+        <label for="chk3">체크3</label>
+      </div>
+      <div>
+        <select name="sel1" id="sel1">
+          <option value="opt1">옵션1</option>
+          <option value="opt2">옵션2</option>
+          <option value="opt3" selected>옵션3</option>
+        </select>
+      </div>
+    </form>
+    <script>
+      $(function () {
+        $("#p1").addClass("aqua");
+
+        // p2 에게 들어있던 red 속성의 스타일이 삭제됨. p3는 그대로 유지
+        $("#p2").removeClass("red");
+
+        // p4에 들어있던 green 속성 삭제
+        $("#p4").toggleClass("green");
+        // p5에 없던 green 속성 추가
+        $("#p5").toggleClass("green");
+
+        // p7안에  p5에 green 속성이 있는지 텍스트로 입력
+        $("#p7").text($("#p5").hasClass("green"));
+
+        let result_1 = $("#user_name").val();
+        console.log(result_1); // 김땡땡
+
+        // #user_id 의 value 값을 jquery로 바꿈
+        $("#user_id").val("jquery");
+
+        let result_2 = $("#user_id").prop("defaultValue");
+        console.log(result_2); // hello
+
+        // chk1이 체크된 상태인지 확인
+        let result_3 = $("#chk1").prop("checked");
+        console.log(result_3);
+
+        // chk1 체크
+        $("#chk1").prop("checked", true);
+
+        // chk2를 체크 해제
+        $("#chk2").prop("checked", false);
+
+        // sel1에서 선택된 인덱스 번호 확인
+        let result_4 = $("#sel1").prop("selectedIndex");
+        console.log(result_4); // 2
+        // 이걸 활용해서 데이터 바인딩한다. 예를들어 텍스트 메서드를 사용해서 값을 보여준다던지
+      });
+    </script>
+  </body>
+</html>
