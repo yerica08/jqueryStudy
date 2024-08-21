@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체 편집 메서드</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        객체 편집 메서드★★★★★
+        : 선택한 요소를 복제하거나 새 요소를 생성하는 메서드와 새로 생성한 요소를 의도한 위치에 삽입하고 선택한 요소를 삭제하는 메서드들로 이루어져 있다.
+
+        1. before()  /  insertBefore()  /  after()  /  insertAfter()
+        before() / insertBefore() 메서드는 선택한 요소의 이전 위치에 새 요소를 생성하고,
+        after() / insertAfter()메서드는 선택한 요소의 다음 위치에 새 요소를 생성한다.
+
+        // 기본형
+        $("요소").before("새 요소");
+        $("새 요소").insertBefore("요소")
+
+        // 기본형
+        $("요소").after("새 요소");
+        $("새 요소").insertAfter("요소")
+
+        ---------------------------------------------------
+
+        2. append()  /  appendTo()  /  prepend()  /  prependTo()
+        : 선택한 요소에 자식요소로 요소 내의 첫번째 위치와 마지막 위치에 추가하는 메서드
+
+        // 기본형(1)
+        $("요소").append('새 요소');
+        $("새 요소").appendTo('요소');
+
+        // 기본형(2)
+        $("요소").prepend('새 요소');
+        $("새 요소").prependTo('요소');
+
+        ---------------------------------------------------
+
+        3. replaceWith()  /  replaceAll()
+        : replaceAll()메서드와 replaceWith()메서드는 선택한 요소를 새 요소로 바꿀 때 사용한다.
+        주로 선택한 모든 요소를 한꺼번에 바꿀 때 사용한다.
+
+        // 기본형
+        $("요소").replaceWith('새 요소');
+        $("새 요소").replaceAll('요소');
+
+        ----------------------------------------------------
+
+        4. unwrap()  /  wrap()  /  wrapAll()  /  wrapInner()
+        : unwrap 메서드는 선택한 요소의 부모요소를 삭제한다.
+        wrap 메서드는 선택한 요소를 각각 새 요소로 감싼다.
+        wrapAll 메서드는 선택한 요소를 한꺼번에 새 요소로 감싼다.
+        wrapInner 메서드는 선택한 요소의 하위 요소를 새 요소로 감싼다.
+
+        // 기본형
+        $("요소").unwrap();
+        $("요소").wrap("새 요소");
+        $("요소").wrapAll("새 요소");
+        $("요소").wrapInner("새 요소");
+    -->
+    <!-- before, after 예시 -->
+    <div id="wrap">
+      <p>내용1</p>
+      <p>내용2</p>
+      <p>내용3</p>
+    </div>
+
+    <!-- append, prepend 예시 -->
+    <ul id="list_wrap">
+      <li>리스트</li>
+    </ul>
+
+    <!-- replace 예시 -->
+    <section class="box1">
+      <h2>제목1</h2>
+      <div>내용1</div>
+      <div>내용2</div>
+    </section>
+    <section class="box2">
+      <h2>제목2</h2>
+      <div>내용3</div>
+      <div>내용4</div>
+    </section>
+
+    <!--  unwrap, wrap, wrapAll, wrapInner 예시-->
+    <h1 id="tit_1">
+      <strong>객체 조작 및 생성</strong>
+    </h1>
+    <p class="ct1">내용1</p>
+    <p class="ct1">내용2</p>
+    <p class="ct2">내용3</p>
+    <p class="ct2">내용4</p>
+    <ul class="menu">
+      <li>내용5</li>
+      <li>내용6</li>
+    </ul>
+    <script>
+      $(function () {
+        // $("#wrap p").eq(2).after("<p>after1</p>");
+        // $("#wrap p").eq(2).after("<p>after2</p>");
+        // $("<p>insertAfter1</p>").insertAfter("#wrap p:eq(2)");
+        // $("<p>insertAfter2</p>").insertAfter("#wrap p:eq(2)");
+        // $("#wrap p").eq(2).before("<p>before1</p>");
+        // $("#wrap p").eq(2).before("<p>before2</p>");
+        // $("<p>insertBefore1</p>").insertBefore("#wrap p:eq(2)");
+        // $("<p>insertBefore2</p>").insertBefore("#wrap p:eq(2)");
+
+        // $("#wrap p").eq(1).before("<p>before</p>");
+        // $("<p>insertBefore</p>").insertBefore("#wrap p:eq(0)");
+
+        // 이렇게 쓰면 모든 뒤의 eq(1)은 무시하고 모든 P태그 앞에 추가한다고 입력된다.
+        $("<p>insertBefore</p>").insertBefore("#wrap p").eq(1);
+
+        // ul 안의 마지막 자식 위치에 li 추가
+        $("#list_wrap").append("<li>append1</li>");
+        $("#list_wrap").append("<li>append2</li>");
+        $("<li>appendTo1</li>").appendTo("#list_wrap");
+        $("<li>appendTo2</li>").appendTo("#list_wrap");
+
+        // ul 안의 첫번째 자식 위치에 li 추가
+        $("#list_wrap").prepend("<li>prepend1</li>");
+        $("#list_wrap").prepend("<li>prepend2</li>");
+        $("<li>prependTo1</li>").prependTo("#list_wrap");
+        $("<li>prependTo2</li>").prependTo("#list_wrap");
+
+        // 문서 내의 모든 h2태그를 h3태그로 바꾸기
+        $("h2").replaceWith("<h3>replaceWith</h3>");
+
+        // 문서 내의 모든 div태그를 p태그로 바꾸기
+        $("<p>replaceAll</p>").replaceAll("div");
+
+        //strong 태그의 부모인 h1을 삭제하기
+        $("strong").unwrap();
+        /*
+        <h1 id="tit_1">
+            객체 조작 및 생성
+        </h1>
+        */
+
+        //.ct1을 div로 각각 감싸기
+        $(".ct1").wrap("<div/>");
+        /* 
+        <div> 
+            <p class="ct1">내용1</p>
+        </div>
+        <div> 
+            <p class="ct1">내용2</p>
+        </div>
+        */
+
+        //.ct2를 div로 한번에 감싸기
+        $(".ct2").wrapAll("<div/>");
+        /* 
+        <div> 
+            <p class="ct2">내용3</p>
+            <p class="ct2">내용4</p>
+        </div>
+        */
+
+        //li를 h3으로 감싸기
+        $(".menu li").wrapInner("<h3 />");
+        /*
+        <li>
+            <h3>내용5</h3>
+        </li>
+        <li>
+            <h3>내용6</h3>
+        </li>
+        */
+      });
+    </script>
+  </body>
+</html>
