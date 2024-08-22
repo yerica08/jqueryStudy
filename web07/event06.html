@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 종류</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+         로딩이벤트
+         : 사용자가 사이트를 방문할 때 이벤트 메서드가 실행된다.
+         ready()이벤트는 방문한 사이트에 요청한 html 문서 객체 로딩이 끝나면 이벤트를 발생시킨다.
+
+         load()이벤트는 외부에 연동된 소스(img, video, iframe...)의 로딩이 끝나면 이벤트를 발생시킨다.
+
+         // 기본형
+         - 단독이벤트
+         $(document).ready(function(){...});
+         $(window).load(function(){...});
+
+         - 그룹이벤트 // 잘 쓰진
+         $(document).on('ready', function(){...});
+         $(window).on('load', function(){...});
+    -->
+    <img
+      src="https://images.pexels.com/photos/27771723/pexels-photo-27771723.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      alt="" />
+    <script>
+      $(function () {
+        // ready가 load 보다 더 빠르다.
+        $(window).load(function () {
+          let imageTag = $("img").height();
+          console.log("load : ", imageTag);
+        });
+        $(document).ready(function () {
+          let imageTag = $("img").height();
+          console.log("ready : ", imageTag);
+        });
+      });
+    </script>
+  </body>
+</html>
