@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마우스이벤트</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        mousemove()
+        마우스가 이동할 때 마다 이벤트가 발생한다.
+
+        // 기본형
+        $('요소').mousemove(function(){ 코드... }) // 단독 이벤트
+        $('요소').on("mousemove", function(){ 코드... }) // 그룹 이벤트
+        $('요소').mousemove() - 강제 이벤트
+
+        이벤트 객체
+        [마우스 이벤트]
+        - button : 마우스 버튼의 종류에 따라 값을 반환한다.
+        - layerX : position을 적용한 요소를 기준으로 마우스 포인터의 X좌푯값을 반환한다.
+        - layerY : position을 적용한 요소를 기준으로 마우스 포인터의 Y좌푯값을 반환한다.
+        [전체 이벤트]
+        - target ★ : 이벤트가 전파된 마지막 요소를 가리킨다.
+        - cancelBubble : 이벤트의 전파를 차단하는 속성으로 기본값을 false이며 true로 설정하면 전파가 차단된다.
+                         버블링을 막을 수 있다.
+        - stopPropagation() ★ : 이벤트의 전파를 차단하는 메서드이다. cancelBubble보다 더 자주 쓰인다. 
+        - preventDefault() ★ : 태그의 기본 이벤트를 차단한다. 
+    -->
+    <p>X 축 좌표 : <span class="posX">0</span></p>
+    <p>Y 축 좌표 : <span class="posY">0</span></p>
+    <script>
+      $(function () {
+        $(document).on("mousemove", function (e) {
+          $(".posX").text(e.pageX);
+          $(".posY").text(e.pageY);
+        });
+      });
+      //parameter(매개변수) e는 JQueryEventObject이벤트 객체라는 것을 마우스를 갖다대면 알 수 있다.
+      // e.cancelBubble = true; 과 같은 형식으로 쓰면 된다. 프로퍼티이기 때문에 프로퍼티 형식으로 작성.
+    </script>
+  </body>
+</html>

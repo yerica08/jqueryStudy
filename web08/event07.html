@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+    <style>
+      #box_1,
+      #box_2 {
+        padding: 20px;
+        border: 1px solid black;
+        width: fit-content;
+        position: relative;
+      }
+      .out {
+        position: absolute;
+        top: 0;
+        right: -10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        mouseover()는 선택한 요소 위에 마우스 커서 올라가면 이벤트가 발생하고
+        mouseout()은 선택한 요소에서 마우스 커서가 벗어나면 이벤트가 발생한다.
+        hover()는 선택한 요소에서 마우스가 올라갔을 때와 벗어났을 때 각각 이벤트를 발생시킬 수 있다.
+
+        // 기본형 - mouseover(), mouseout()
+        $('요소').mouseover(function(){ 코드... }) // 단독 이벤트
+        $('요소').on("mouseover", function(){ 코드... }) // 그룹 이벤트
+        $('요소').mouseover() - 강제 이벤트
+
+        // 기본형 - hover 이벤트는 단독 이벤트만 존재한다.
+        $('요소').hover(
+            function(){ 코드... }),
+            function(){ 코드... }) // 단독 이벤트
+        $('요소').hover() // 강제 이벤트
+
+        =====================================================
+
+        mouseenter() / mouseleave()
+        mouseenter()는 대상 요소의 경계 범위에 마우스 포인터가 들어오면 이벤트를 실행하고
+        mouseleave()는 대상 요소의 경계 범위에서 마우스 포인터가 벗어나면 이벤트를 실행한다.
+
+        mouseover(), mouseout()과의 차이점은 대상요소 위에 마우스가 올라가느냐 아니면
+        경계범위에서 이벤트가 실행되드냐의 차이이다.
+
+        // 기본형 - mouseenter(), mouseleave()
+        $('요소').mouseenter(function(){ 코드... }) // 단독 이벤트
+        $('요소').on("mouseenter", function(){ 코드... }) // 그룹 이벤트
+        $('요소').mouseenter() // 강제 이벤트
+    -->
+    <div>
+      <button class="btn1">mouseout / mouseover</button>
+    </div>
+    <p class="txt1">내용1</p>
+    <div>
+      <button class="btn2">hover</button>
+    </div>
+    <p class="txt2">내용2</p>
+
+    <h2>mouseout()</h2>
+    <div id="box_1">
+      <p><a href="#">내용1</a></p>
+      <p><a href="#">내용2</a></p>
+      <p><a href="#" class="out">내용3</a></p>
+    </div>
+    <h2>mouseleave()</h2>
+    <div id="box_2">
+      <p><a href="#">내용1</a></p>
+      <p><a href="#">내용2</a></p>
+      <p><a href="#" class="out">내용3</a></p>
+    </div>
+    <script>
+      $(function () {
+        $(".btn1").on({
+          // 마우스 오버
+          mouseover: function () {
+            $(".txt1").css("color", "red");
+          },
+          // 마우스 아웃
+          mouseout: function () {
+            $(".txt1").css("color", "#000");
+          },
+        });
+
+        // 호버
+        $(".btn2").hover(
+          function () {
+            $(".txt2").text("내용이 바뀌었습니다.");
+          },
+          function () {
+            $(".txt2").text("내용2");
+          }
+        );
+
+        // 마우스 아웃 : 자식요소까지 각각의 범위로 판단하여 각 요소에서 벗어나면 이벤트가 발생
+        $("#box_1").on("mouseout", function () {
+          $("#box_1").css("background-color", "yellow");
+        });
+
+        // 마우스 리브 : 부모요소 아래의 하위 요소는 모두 하나의 요소로 판단하여 범위가 넓다.
+        $("#box_2").on("mouseleave", function () {
+          $("#box_2").css("background-color", "pink");
+        });
+      });
+    </script>
+  </body>
+</html>

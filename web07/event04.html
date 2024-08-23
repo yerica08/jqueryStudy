@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>강제 이벤트</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        강제 이벤트
+        : 이벤트가 강제로 발생했다는 말은 사용자에 의해 이벤트가 발생하는 것이 아니라,
+        이벤트 핸들러에 의해 이벤트가 자동으로 발생하는 것을 말한다.
+        강제 이벤트는 단독 이벤트 메서드와 trigger 이벤트 메서드를 사용해서 발생시킬 수 있다.
+
+        // 기본형
+        1. 단독 이벤트 메서드로 강제 이벤트 만들기
+        $('이벤트 대상').이벤트명();
+
+        2. trigger 이벤트 메서드로 강제 이벤트 만들기
+        $('이벤트 대상').trigger('이벤트명')
+        
+    -->
+    <div>
+      <button type="button" class="btn1">버튼1</button>
+    </div>
+    <p>내용1</p>
+    <div>
+      <button type="button" class="btn2">버튼2</button>
+    </div>
+    <p>내용2</p>
+    <script>
+      $(function () {
+        //.btn1에 클릭이벤트 등록
+        $(".btn1").click(function () {
+          $(".btn1").parent().next().css("background-color", "pink");
+        });
+
+        //강제로 .btn1에 클릭 이벤트를 발생. 클릭이라는 함수의 호출문이 되었음.
+        $(".btn1").click();
+
+        //.btn2에 마우스 오버, 포커스 이벤트 등록
+        $(".btn2").on({
+          "mouseover focus": function () {
+            $(".btn2").parent().next().text("내용이 바뀝니다.");
+          },
+        });
+        $(".btn2").trigger("mouseover");
+      });
+    </script>
+  </body>
+</html>
