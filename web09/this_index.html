@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this, index()</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        이벤트가 발생한 요소 추적하기
+        : 사이트  방문자가 이벤트를 발생시킨 요소의 정보를 구해올 때 this를 이용할 수 있다.
+        또한 이벤트가 발생한 요소의 index값을 구해올 수 있다. 
+
+        $(this)선택자
+        : 이벤트 핸들러에서 $(this)를 사용하면 이벤트가 발생한 요소를 추적할 수 있다.
+        $(this)안에는 이벤트가 발생한 요소, 즉 해당 태그가 반환된다.
+
+        index()메서드
+        : 이벤트를 등록한 요소 중 이벤트가 발생한 요소의 인덱스 값을 반환한다.
+
+        // 기본형
+        $('요소').이벤트명(function(){
+            $('요소').index(this);
+        }) // 단독이벤트
+        $('요소').on('이벤트명', function(){
+            $('요소').index(this);
+        }) // 그룹이벤트
+    -->
+    <!-- this 선택자 예시 -->
+    <h2>$(this)</h2>
+    <ul class="menuWrap_1">
+      <li><a href="#">메뉴1</a></li>
+      <li><a href="#">메뉴2</a></li>
+      <li><a href="#">메뉴3</a></li>
+    </ul>
+
+    <!-- index 메서드 예시 -->
+    <h2>index()</h2>
+    <ul class="menuWrap_2">
+      <li><a href="#">메뉴1</a></li>
+      <li><a href="#">메뉴2</a></li>
+      <li><a href="#">메뉴3</a></li>
+    </ul>
+    <p class="idxNum"></p>
+
+    <script>
+      $(function () {
+        $(".menuWrap_1 a").on("click", function (e) {
+          e.preventDefault(); // 기본 이벤트 차단
+
+          // 모든 a 태그의 배경 색상을 흰색으로 지정
+          $(".menuWrap_1 a").css({
+            "background-color": "#fff",
+            transition: "0.3s",
+          });
+
+          // this = 사용자가 클릭한 a 태그
+          $(this).css({
+            backgroundColor: "pink",
+            transition: "0.3s",
+          });
+        });
+
+        $(".menuWrap_2 a").on("click", function (e) {
+          e.preventDefault(); // 기본 이벤트 차단
+
+          // 모든 a태그의 배경 색상을 흰색으로 지정
+          $(".menuWrap_2 a").css({
+            backgroundColor: "#fff",
+          });
+
+          // .menuWrap_2 a태그 중 클릭한 요소(this)의 index값을 idx에 할당
+          let idx = $(".menuWrap_2 a").index(this);
+
+          $(".menuWrap_2 a").eq(idx).css({
+            backgroundColor: "gold",
+          });
+          $(".idxNum").text(idx);
+        });
+      });
+    </script>
+  </body>
+</html>
