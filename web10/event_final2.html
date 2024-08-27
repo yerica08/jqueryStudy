@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+    <style>
+      div {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="zoomBtn">
+      <button class="zoomOut">-</button>
+      <button class="originBtn">100%</button>
+      <button class="zoomIn">+</button>
+    </p>
+    <p class="fontSize">14px</p>
+    <div id="wrap">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero deleniti
+      animi blanditiis! Assumenda perferendis repellendus culpa nam repellat non
+      at dolore. Earum ad minima culpa labore distinctio, quas corrupti
+      deleniti.
+    </div>
+    <script>
+      $(function () {
+        let baseFont = 14;
+
+        $(".zoomBtn button").on("click", zoomInOut);
+
+        function zoomInOut() {
+          if ($(this).hasClass("zoomOut")) {
+            // 폰트 사이즈 1씩 감소. 8이되면 return false
+            if (baseFont <= 8) return false;
+            baseFont--;
+          } else if ($(this).hasClass("zoomIn")) {
+            // 폰트 사이즈 1씩 증가. 20이되면 return false
+            if (baseFont >= 20) return false;
+            baseFont++;
+          } else {
+            baseFont = 14;
+          }
+          $(".fontSize").text(baseFont + "px");
+          $("body").css({
+            "font-size": $(".fontSize").text(),
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

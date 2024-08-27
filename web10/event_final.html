@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 총정리 실습</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+    <style>
+      div {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="zoomBtn">
+      <button class="zoomOut">-</button>
+      <button class="originBtn">100%</button>
+      <button class="zoomIn">+</button>
+    </p>
+    <p class="fontSize">14px</p>
+    <div id="wrap">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero deleniti
+      animi blanditiis! Assumenda perferendis repellendus culpa nam repellat non
+      at dolore. Earum ad minima culpa labore distinctio, quas corrupti
+      deleniti.
+    </div>
+    <script>
+      $(function () {
+        // font-size 는 8 ~ 20px 사이
+        let p = 14;
+
+        // div의 font-size를 조절하는 함수
+        function fontSize() {
+          $("#wrap").css({
+            "font-size": $(".fontSize").text(),
+          });
+        }
+
+        // zoomOut을 클릭하면 p가 1씩 감소하고 font-size도 함께 변함.
+        $(".zoomOut").on("click", function () {
+          p--;
+          if (p == 7) p = 8;
+          $(".fontSize").text(p + "px");
+          fontSize();
+        });
+
+        // originBtn 클릭하면 원래 폰트사이즈인 14px로 돌아옴.
+        $(".originBtn").on("click", function () {
+          $(".fontSize").text("14px");
+          fontSize();
+        });
+
+        // zoomOut을 클릭하면 p가 1씩 증가하고 font-size도 함께 변함.
+        $(".zoomIn").on("click", function () {
+          p++;
+          if (p == 21) p = 20;
+          $(".fontSize").text(p + "px");
+          fontSize();
+        });
+      });
+    </script>
+  </body>
+</html>

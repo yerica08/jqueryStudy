@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 제거 메서드</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 
+        이벤트 제거 메서드
+        : 이벤트 제거 메서드를 사용하면 이전에 등록했던 이벤트를 제거할 수 있다.
+        이때 이벤트를 어떤 종류로 등록했는지에 따라서 문법과 메서드 이름이 달라진다.
+
+        [종류]
+        1. off() : on()메서드로 등록한 이벤트를 제거할 때 사용한다.
+        2. unbind() : bind()메서드로 등록한 이벤트를 제거한다.
+        3. undelegate() : delegate()메서드로 등록한 이벤트를 제거한다.
+        
+        1. on()이벤트 해제를 위한 off()메서드
+        // 기본형(1) : 기본 이벤트 제거 방식
+            $('요소').off('제거할 이벤트 명')
+
+        // 기본형(2) : 라이브 이벤트 제거 방식
+            $(documnet 또는 '이벤트 대상의 상위요소').off('제거할 이벤트 명', '이벤트 대상')
+
+        2. bind()이벤트 해제를 위한 unbind()메서드
+        // 기본형(1) : 기본 이벤트 제거 방식
+            $('요소').bind('제거할 이벤트 명')
+        
+        3. delegate()이벤트 해제를 위한 unbind()메서드
+        // 기본형(1) : 기본 이벤트 제거 방식
+            $('요소').undelegate('제거할 이벤트 명')
+
+        // 기본형(2) : 라이브 이벤트 제거 방식
+            $(documnet 또는 '이벤트 대상의 상위요소').undelegate('이벤트 대상', '제거할 이벤트 명')
+        
+    -->
+    <div id="wrap">
+      <button class="btn2">버튼2</button>
+      <p></p>
+    </div>
+    <p>
+      <button class="del1">버튼1 이벤트 해제</button>
+      <button class="del2">버튼2 이벤트 해제</button>
+    </p>
+    <script>
+      $(function () {
+        // btn1에 기본 이벤트 등록
+        $(".btn2").on("mouseover", function () {
+          $("#wrap p").text("HELLO!");
+        });
+
+        // 존재하지 않는 btn2 태그에 라이브 이벤트 등록
+        $(document).on("mouseover", ".btn1", function () {
+          $("#wrap p").text("WELCOME!");
+        });
+
+        // button태그를 동적으로 생성
+        let btn1 = $('<button class="btn1">버튼1</button>');
+
+        // #wrap의 자식 요소 중 막내 위치에 btn2 추가
+        $("#wrap").prepend(btn1);
+
+        // del2에 클릭 이벤트 등록
+        $(".del2").on("click", function () {
+          // btn2에 등록한 일반 이벤트 제거
+          $(".btn2").off("mouseover");
+        });
+
+        // del1에 클릭 이벤트 등록
+        $(".del1").on("click", function () {
+          // btn1에 등록한 라이브 이벤트 제거
+          $(document).off("mouseover", ".btn1");
+        });
+      });
+    </script>
+  </body>
+</html>
