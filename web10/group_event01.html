@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>그룹이벤트 및 삭제하기</title>
+    <!-- 제이쿼리 -->
+    <script src="../web01/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <p>
+        <button class="btn1">버튼1</button>
+      </p>
+      <p>
+        <button class="btn2">버튼2</button>
+      </p>
+    </div>
+
+    <div id="wrap2">
+      <p class="btn_wrap">
+        <button class="btn3">버튼3</button>
+      </p>
+      <p>
+        <button class="btn4">버튼4</button>
+      </p>
+    </div>
+
+    <script>
+      $(function () {
+        /*
+          그룹이벤트 등록 메서드의 종류
+          ===========================================
+          그룹 이벤트 등록 메서드는 한 번에 2개 이상의 이벤트를 등록할때 사용한다.
+          그룹 이벤트는 다양한 종류가 있다.
+
+          1. on()★
+          : 이벤트 대상 요소에 2개 이상의 이벤트를 등록한다. 사용 방식에 따라 
+            이벤트를 등록한 이후에 동적으로 생성되거나 복제된 요소에도 이벤트가 적용된다.
+            [일반 이벤트 기본형]
+            $("이벤트대상").on("이벤트종류", function(){ 이벤트 핸들러 })
+            
+            [라이브 이벤트 기본형]
+            $(document 또는 "이벤트 대상의 상위 요소").on("이벤트 종류", "이벤트 대상", function(){
+              이벤트 핸들러;
+            })
+
+          2. bind()
+          : 이벤트 대상 요소에 2개 이상의 이벤트를 등록한다.
+
+          3. delegate()
+          : 선택한 요소의 하위 요소에 이벤트를 등록한다. 이벤트를 등록한 이후에 동적으로 
+            생성되거나 복제된 요소에도 이벤트가 적용된다.
+            * on()라이브 이벤트와 문법상 다른 점은 이벤트 대상과 이벤트 종류의 자리가 서로 반대이다.
+              자리가 바뀌면 오류가 발생하므로 잘 기억해야 한다!
+            [라이브 이벤트 기본형]
+            $(document 또는 '이벤트 대상의 상위요소').delegate("이벤트 대상", "이벤트 종류", function(){
+              이벤트 핸들러;
+            } )
+
+          4. one()
+          : 이벤트 대상에 1개 이상의 이벤트를 등록한다. 지정한 이벤트가 1번 실행되고 자동으로
+            삭제 된다.
+            [일반 이벤트]
+            $("이벤트 대상 요소").one("이벤트명", function(){ 이벤트 핸들러 })
+
+            [라이브 이벤트]
+            $(document 또는 "이벤트 대상의 상위 요소").one("이벤트 종류", "이벤트 대상", function(){
+              이벤트 핸들러;
+            })
+
+
+          라이브 이벤트 등록 메서드
+          ======================================
+          앞에서 배운 이벤트 등록 방식으로는 객체 조작 메서드에 의해 새롭게 생성, 복제된 요소에
+          이벤트를 등록할 수 없다. 그래서 동적으로 생성된 요소에도 이벤트를 넣어야 할 경우
+          라이브 이벤트 등록 메서드를 사용해야 한다.
+
+          [기본형]
+          $("document 또는 이벤트 대상의 상위 요소").on("이벤트 종류", "이벤트 대상", function(){
+            이벤트 핸들러;
+          })
+        */
+
+        //일반 그룹 이벤트 - 이벤트가 실행되지 않는다.
+        //class가 btn1이면서 on인 요소에 mouseover focus이벤트를 등록한다.
+        $(".btn1.on").on("mouseover focus", function () {
+          alert("hello!");
+        });
+
+        $(".btn1").addClass("on"); //btn1에 클래스 on을 추가한다.
+
+        //라이브 이벤트 - 이벤트가 정상 작동한다.
+        //class가 btn2이면서 on인 요소에 mouseover focus이벤트를 등록한다.
+        $(document).on("mouseover focus", ".btn2.on", function () {
+          alert("welcome!");
+        });
+
+        $(".btn2").addClass("on"); //btn2에 클래스 on을 추가한다.
+
+        //delegate이벤트 메서드
+        //btn3의 부모요소인 btn_wrap을 선택하여 라이브 이벤트 등록
+        $(".btn_wrap").delegate(".btn3.on", "click", function () {
+          alert("javascript!!");
+        });
+
+        $(".btn3").addClass("on"); //btn3에 클래스 on을 추가한다.
+
+        //one 라이브 이벤트 등록
+        //btn4는 부모요소를 특정하기 어려우므로 document를 선택하여
+        //이벤트를 등록함.
+        $(document).one("mouseover focus", ".btn4.on", function () {
+          alert("jQuery!!");
+        });
+        $(".btn4").addClass("on"); //btn4에 클래스 on을 추가한다.
+      });
+    </script>
+  </body>
+</html>
